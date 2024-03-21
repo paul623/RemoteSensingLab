@@ -28,6 +28,11 @@ DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 
 ## 深度学习的方法
 
+### STFCNN
+论文：[Spatiotemporal Satellite Image Fusion Using Deep Convolutional Neural Networks](https://ieeexplore.ieee.org/abstract/document/8291042)
+
+代码：[setneicum/stfcnn](https://github.com/setneicum/stfcnn)
+
 ### GANSTFM
 
 论文：[A Flexible Reference-Insensitive Spatiotemporal Fusion Model for Remote Sensing Images Using Conditional Generative Adversarial Network | IEEE Journals & Magazine | IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/9336033)
