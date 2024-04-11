@@ -4,7 +4,7 @@
 
 DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 
-自己整理的一些关于遥感图像时空融合的相关知识：[遥感图像时空融合看板]([https://blog.csdn.net/qq_43873392/article/details/127990068](https://www.yuque.com/basailuonadeyuhui/lczi48/ur61mu8fgbmum727?singleDoc# 《遥感图像 时空融合知识库 看板》))
+自己整理的一些关于遥感图像时空融合的相关知识：[遥感图像时空融合看板](https://www.yuque.com/basailuonadeyuhui/lczi48/ur61mu8fgbmum727?singleDoc# 《遥感图像 时空融合知识库 看板》)
 
 全部传统方法请参考这个仓库：[Free-shared-Spatiotemporal-method-of-remote-sensing](https://github.com/max19951001/Free-shared-Spatiotemporal-method-of-remote-sensing-)
 
