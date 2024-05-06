@@ -166,7 +166,7 @@ if __name__ == '__main__':
     # predict_dir = "/home/zbl/codeLab/remotePython/RemoteSensingLab/fake.tif"
     # ground_truth_dir = "/home/zbl/datasets_paper/CIA-swinSTFM/val/2002_005_0105-2002_012_0112/20020112_TM.tif"
     predict_dir = "/home/zbl/codeLab/remotePython/RemoteSensingLab/fake.tif"
-    ground_truth_dir = "/home/zbl/datasets_paper/LGC-swinSTFM/val/2004_331_1126-2004_347_1212/20041212_TM.tif"
+    ground_truth_dir = "/home/zbl/datasets_paper/CIA-MLFF-GAN/val/2002_076_0317-2002_092_0402/20020402_TM.tif"
     ix = gdal_array.LoadFile(predict_dir).astype(np.int32)
     iy = gdal_array.LoadFile(ground_truth_dir).astype(np.int32)
     # if config.choice == 'CIA':

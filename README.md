@@ -4,6 +4,9 @@
 
 DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 
+自己整理的一些关于遥感图像时空融合的相关知识：[遥感图像时空融合看板](https://www.yuque.com/basailuonadeyuhui/lczi48/ur61mu8fgbmum727?singleDoc# 《遥感图像 时空融合知识库 看板》)
+
+全部传统方法请参考这个仓库：[Free-shared-Spatiotemporal-method-of-remote-sensing](https://github.com/max19951001/Free-shared-Spatiotemporal-method-of-remote-sensing-)
 
 
 ## 传统方法
@@ -27,6 +30,11 @@ DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 [HoucaiGuo/Fit-FC-Python: Python implementation of the Fit-FC algorithm for spatiotemporal fusion of remote sensing images. (github.com)](https://github.com/HoucaiGuo/Fit-FC-Python)
 
 ## 深度学习的方法
+
+### STFCNN
+论文：[Spatiotemporal Satellite Image Fusion Using Deep Convolutional Neural Networks](https://ieeexplore.ieee.org/abstract/document/8291042)
+
+代码：[setneicum/stfcnn](https://github.com/setneicum/stfcnn)
 
 ### GANSTFM
 

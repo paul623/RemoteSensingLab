@@ -1,10 +1,14 @@
+import warnings
+
 from sklearn.linear_model import LinearRegression
 import numpy as np
 from skimage.transform import resize
+from tqdm import tqdm
+
 from functions import *
 from skimage.transform import downscale_local_mean
 from datetime import datetime
-
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='np')
 
 class Fit_FC:
     def __init__(self, F_t1, C_t1, C_t2, RM_win_size=3, scale_factor=16, similar_win_size=17, similar_num=20):
@@ -71,7 +75,7 @@ class Fit_FC:
                                         dtype=np.uint32)
 
         distances = self.calculate_distances().flatten()
-        for row_idx in range(self.F_t1.shape[0]):
+        for row_idx in tqdm(range(self.F_t1.shape[0]), desc='select_similar_pixels'):
             for col_idx in range(self.F_t1.shape[1]):
                 central_pixel_vals = self.F_t1[row_idx, col_idx, :]
                 neighbor_pixel_vals = F_t1_pad[row_idx:row_idx + self.similar_win_size,
@@ -139,7 +143,7 @@ class Fit_FC:
         similar_indices, similar_weights = self.select_similar_pixels()
         print("Selected similar pixels!")
 
-        for band_idx in range(self.F_t1.shape[2]):
+        for band_idx in tqdm(range(self.F_t1.shape[2]), desc='Fitting FC'):
             a, b, r = self.regression_model_fitting(band_idx)
             a = resize(a, output_shape=(self.F_t1.shape[0], self.F_t1.shape[1]), order=0)
             b = resize(b, output_shape=(self.F_t1.shape[0], self.F_t1.shape[1]), order=0)
@@ -169,10 +173,10 @@ scale_factor = 30
 similar_win_size = 31
 similar_num = 30
 
-F_tb_path = r""
-C_tb_path = r""
-C_tp_path = r""
-Fit_FC_path = r""
+F_tb_path = r"/home/zbl/datasets_paper/LGC/val/2005_045_0214-2005_061_0302/20050214_TM.tif"
+C_tb_path = r"/home/zbl/datasets_paper/LGC/val/2005_045_0214-2005_061_0302/MOD09GA_A2005045.tif"
+C_tp_path = r"/home/zbl/datasets_paper/LGC/val/2005_045_0214-2005_061_0302/MOD09GA_A2005061.tif"
+Fit_FC_path = r"/home/zbl/RunLog/Fit-FC/LGC/PRED_2005_045_0214-2005_061_0302.tif"
 
 if __name__ == "__main__":
     F_tb, F_tb_profile = read_raster(F_tb_path)
@@ -181,13 +185,13 @@ if __name__ == "__main__":
     C_tb_coarse = downscale_local_mean(C_tb, factors=(scale_factor, scale_factor, 1))
     C_tp = read_raster(C_tp_path)[0]
     C_tp_coarse = downscale_local_mean(C_tp, factors=(scale_factor, scale_factor, 1))
-
+    print("裁剪完成，正在处理中，请耐心等待")
     time0 = datetime.now()
     fit_fc = Fit_FC(F_tb, C_tb_coarse, C_tp_coarse,
                     RM_win_size=RM_win_size,
                     scale_factor=scale_factor,
                     similar_win_size=similar_win_size, similar_num=similar_num)
-
+    print("初始化成功，计算中")
     F_tp_RM, F_tp_SF, F_tp_Fit_FC = fit_fc.fit_fc()
     time1 = datetime.now()
     time_span = time1 - time0

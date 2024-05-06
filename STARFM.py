@@ -1,3 +1,5 @@
+import os.path
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -8,6 +10,8 @@ import cv2
 from osgeo import gdal, gdalconst
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+
+import DataHelper
 
 
 ###img read tool###############################################################
@@ -216,12 +220,12 @@ def starfm_main(l1r, m1r, m2r,
                 rowdata = starfm_onepart(
                     allband_arrayindex([l1, m1, m2], padindex, (1, imageshape[0], padindexshape[0], padindexshape[1])),
                     similar, thresholdmax, window, rawindexshape, dist
-                    )
+                )
 
             else:
                 rowdata = torch.cat((rowdata,
                                      starfm_onepart(allband_arrayindex([l1, m1, m2], padindex, (
-                                     1, imageshape[0], padindexshape[0], padindexshape[1])),
+                                         1, imageshape[0], padindexshape[0], padindexshape[1])),
                                                     similar, thresholdmax, window, rawindexshape, dist)), 2)
                 ####Splicing each row
         if rnumber == 0:
@@ -246,17 +250,12 @@ def trans(datafile):
     return datafile
 
 
-def test():
+def starfm(paths, root, name):
     ##three band datas(sorry,just find them at home,i cant recognise the spectral response range of each band,'NIR' and 'red' are only examples)
-
-    # l1file = "/home/zbl/datasets_paper/CIA-swinSTFM/val/2001_329_1125-2002_012_0112/20011125_TM.tif"
-    # l2file = "/home/zbl/datasets_paper/CIA-swinSTFM/val/2001_329_1125-2002_012_0112/20020112_TM.tif"
-    # m1file = "/home/zbl/datasets_paper/CIA-swinSTFM/val/2001_329_1125-2002_012_0112/MOD09GA_A2001329.sur_refl.tif"
-    # m2file = "/home/zbl/datasets_paper/CIA-swinSTFM/val/2001_329_1125-2002_012_0112/MOD09GA_A2002012.sur_refl.tif"
-    l1file = "/home/zbl/datasets_paper/LGC-swinSTFM/val/2004_331_1126-2004_347_1212/20041126_TM.tif"
-    l2file = "/home/zbl/datasets_paper/LGC-swinSTFM/val/2004_331_1126-2004_347_1212/20041212_TM.tif"
-    m1file = "/home/zbl/datasets_paper/LGC-swinSTFM/val/2004_331_1126-2004_347_1212/MOD09GA_A2004331.sur_refl.tif"
-    m2file = "/home/zbl/datasets_paper/LGC-swinSTFM/val/2004_331_1126-2004_347_1212/MOD09GA_A2004347.sur_refl.tif"
+    l1file = paths[1]
+    l2file = paths[3]
+    m1file = paths[0]
+    m2file = paths[2]
 
     ##param
     param = {'part_shape': (75, 75),
@@ -315,7 +314,9 @@ def test():
     #     psnr, ssim1, ssim2, ssim3))
 
     trans(l2_fake)
-    writetif(l2_fake, 'fake.tif', l2file)
+    targetfile_name = f"PRED_{name}.tif"
+    path = os.path.join(root, targetfile_name)
+    writetif(l2_fake, path, l2file)
 
     return
 
@@ -345,5 +346,8 @@ def writetif(dataset, target_file, reference_file):
     del dataset
 
 
-if __name__ == "__main__":
-    test()
+save_path = r"/home/zbl/RunLog/STARFM/LGC/"
+if __name__ == '__main__':
+    list_dirs, names = DataHelper.getDataLoader(option="LGC")
+    for i in range(len(list_dirs)):
+        starfm(list_dirs[i], save_path, names[i])

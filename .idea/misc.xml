@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Remote Python 3.9.18 (sftp://zbl@10.255.249.187:22/home/zbl/anaconda3/envs/d2l/bin/python)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (d2l) (4)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.9.18 (sftp://zbl@10.255.249.187:22/home/zbl/anaconda3/envs/d2l/bin/python)" project-jdk-type="Python SDK" />
 </project>
