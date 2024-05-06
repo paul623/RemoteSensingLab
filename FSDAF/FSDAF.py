@@ -11,7 +11,7 @@ import idlwrap
 from scipy.interpolate import Rbf
 import statsmodels.api as sm
 from isodata import myISODATA
-
+from tqdm import tqdm
 
 def value_locate(refx, x):
     refx = np.array(refx)
@@ -80,9 +80,9 @@ patch_long = block_size*scale_factor
 n_nl = math.ceil(orig_nl / patch_long)
 n_ns = math.ceil(orig_ns / patch_long)
 
-ind_patch1 = np.zeros((n_nl * n_ns, 4), dtype=np.int)
-ind_patch = np.zeros((n_nl * n_ns, 4), dtype=np.int)
-location = np.zeros((n_nl * n_ns, 4), dtype=np.int)
+ind_patch1 = np.zeros((n_nl * n_ns, 4), dtype=np.int32)
+ind_patch = np.zeros((n_nl * n_ns, 4), dtype=np.int32)
+location = np.zeros((n_nl * n_ns, 4), dtype=np.int32)
 
 for i_ns in range(0, n_ns):
     for i_nl in range(0, n_nl):
@@ -200,7 +200,7 @@ starttime = datetime.datetime.now()  # the initial time of program running
 
 print('there are total', n_nl*n_ns, 'blocks')
 
-for isub in range(0, n_nl * n_ns):
+for isub in tqdm(range(0, n_nl * n_ns), desc="change prediction and TPS prediction"):
 
     # open each block image
 
@@ -402,7 +402,7 @@ for isub in range(0, n_nl * n_ns):
             tps = rbf(row_ind.ravel(), col_ind.ravel()).reshape([nl, ns])
             L2_tps[ib, :, :] = tps
 
-        print('finish TPS prediction')
+        # print('finish TPS prediction')
 
         # step 6: redistribute residual
         # change residual
@@ -475,7 +475,7 @@ for isub in range(0, n_nl * n_ns):
 
     change_21 = change_21[:, location[isub, 2]:location[isub, 3] + 1, location[isub, 0]:location[isub, 1] + 1]
 
-    print('finish change prediction step ', isub+1, 'block')
+    # print('finish change prediction step ', isub+1, 'block')
     tempoutname1 = temp_file + '\\temp_change'
     Out_Name = tempoutname1 + str(isub + 1) + suffix
     fp = path1
@@ -557,7 +557,7 @@ for isub in range(0, n_nl * n_ns):
     writeimage(data, out_name, fp)
 
 for isub in range(0, n_nl * n_ns):
-
+    # print('final prediction: ', str(isub + 1), 'block')
     # open each block image
 
     FileName = temp_file + '\\temp_F1' + str(isub + 1) + suffix
@@ -590,7 +590,7 @@ for isub in range(0, n_nl * n_ns):
     for iband in range(0, nb):
         similar_th[iband] = np.std(fine1[iband, :, :]) * 2.0 / float(num_class)
 
-    for i in range(location[isub, 0], location[isub, 1] + 1):    # retrieve each target pixel
+    for i in tqdm(range(location[isub, 0], location[isub, 1] + 1), desc=f"[{str(isub+1)}/{n_nl * n_ns}]retrieve each target pixel"):    # retrieve each target pixel
         for j in range(location[isub, 2], location[isub, 3] + 1):
             if fine1[background_band - 1, j, i] != background:     # do not process the background
 
@@ -655,7 +655,7 @@ for isub in range(0, n_nl * n_ns):
     fine2[fine2 < DN_min] = DN_min
     fine2[fine2 > DN_max] = DN_max
 
-    print('finish final prediction', str(isub+1), 'block')
+    # print('finish final prediction', str(isub+1), 'block')
     tempoutname1 = temp_file + '\\temp_blended'
     Out_Name = tempoutname1 + str(isub+1) + suffix
     fp = path1
