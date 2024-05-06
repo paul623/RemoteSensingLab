@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+from tqdm import tqdm
 
 
 def initialize_parameters(parameters=None):
@@ -77,7 +78,7 @@ def myISODATA(img, parameters=None):
 
     for i in range(k):
         c[i] = img[i, :]
-    for iter in range(I):
+    for iter in tqdm(range(I), desc="Classify a numpy 'img' using Isodata algorithm"):
 
         distance = np.zeros((shape[0] * shape[1], k))
 

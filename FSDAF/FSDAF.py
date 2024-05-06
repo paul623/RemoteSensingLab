@@ -134,7 +134,7 @@ path3 = filedialog.askopenfilename(title=u"open the coarse image of the predicti
 _, _, FileName3 = read_raster(path3)
 
 tempoutname = temp_file + '\\temp_C0'
-for isub in range(0, n_nl * n_ns):
+for isub in tqdm(range(0, n_nl * n_ns), desc="prepare for prediction"):
     col1 = ind_patch[isub, 0]
     col2 = ind_patch[isub, 1]
     row1 = ind_patch[isub, 2]
@@ -169,6 +169,7 @@ background_whole = 0  # clear this variable
 # *******************************
 
 # step1: get spectral classes from fine resolution image at t1 by isodata
+print("get spectral classes from fine resolution image at t1 by isodata")
 _, _, imagei_new = read_raster_new(tempoutname11)
 imagei_new = np.maximum(imagei_new, 0)
 
@@ -182,7 +183,7 @@ params = {"K": min_class, "I": I, "P": 2, "maxStdv": maxStdv, "minDis": minDis,
 labels0 = labels + 1
 
 tempoutname = temp_file + '\\class'
-for isub in range(0, n_nl * n_ns):
+for isub in tqdm(range(0, n_nl * n_ns), desc="process image blocks"):
     col1 = ind_patch[isub, 0]
     col2 = ind_patch[isub, 1]
     row1 = ind_patch[isub, 2]
@@ -198,8 +199,8 @@ for isub in range(0, n_nl * n_ns):
 
 starttime = datetime.datetime.now()  # the initial time of program running
 
-print('there are total', n_nl*n_ns, 'blocks')
-
+print('\nthere are total', n_nl*n_ns, 'blocks')
+print("process each clock")
 for isub in tqdm(range(0, n_nl * n_ns), desc="change prediction and TPS prediction"):
 
     # open each block image
@@ -482,6 +483,7 @@ for isub in tqdm(range(0, n_nl * n_ns), desc="change prediction and TPS predicti
     writeimage(change_21, Out_Name, fp)
 
 # **************************mosaic all the change patch********************************
+print("mosaic all the change patch")
 datalist = []
 minx_list = []
 maxX_list = []
@@ -541,7 +543,7 @@ del dataset
 
 
 # *******************************step 5: final prediction*********************************
-
+print("final prediction")
 FileName6 = temp_file + "\\temp_change" + suffix
 _, _, change = read_raster(FileName6)
 
@@ -666,7 +668,7 @@ print('time used:', (endtime - starttime).seconds, 'seconds')
 
 # # ***************************************************************
 # # mosaic all the blended patch
-
+print("mosaic all the blended patch")
 datalist = []
 minx_list = []
 maxX_list = []
@@ -722,3 +724,4 @@ geoTransform = in_ds.GetGeoTransform()
 dataset.SetGeoTransform(geoTransform)
 proj = in_ds.GetProjection()
 dataset.SetProjection(proj)
+print("all done!")
