@@ -8,7 +8,6 @@ DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 
 全部传统方法请参考这个仓库：[Free-shared-Spatiotemporal-method-of-remote-sensing](https://github.com/max19951001/Free-shared-Spatiotemporal-method-of-remote-sensing-)
 
-
 ## 传统方法
 
 ### STARFM
@@ -32,6 +31,7 @@ DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 ## 深度学习的方法
 
 ### STFCNN
+
 论文：[Spatiotemporal Satellite Image Fusion Using Deep Convolutional Neural Networks](https://ieeexplore.ieee.org/abstract/document/8291042)
 
 代码：[setneicum/stfcnn](https://github.com/setneicum/stfcnn)
@@ -71,6 +71,20 @@ DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 论文：[MLFF-GAN: A Multilevel Feature Fusion With GAN for Spatiotemporal Remote Sensing Images | IEEE Journals & Magazine | IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/9781347/)
 
 代码：[songbingze/MLFF-GAN (github.com)](https://github.com/songbingze/MLFF-GAN)
+
+### ECPW-STFN
+
+论文：[Enhanced wavelet based spatiotemporal fusion networks using cross-paired remote sensing images - ScienceDirect](https://www.sciencedirect.com/science/article/pii/S092427162400176X)
+
+代码：[lixinghua5540/ECPW-STFN: Enhanced wavelet based spatiotemporal fusion networks using cross-paired remote sensing images, 2024](https://github.com/lixinghua5540/ECPW-STFN)
+
+### STFDiff
+
+论文：[STFDiff: Remote sensing image spatiotemporal fusion with diffusion models - ScienceDirect](https://www.sciencedirect.com/science/article/pii/S1566253524002835)
+
+代码：[prowDIY/STF](https://github.com/prowDIY/STF)
+
+注：模型路径在<u>src.model.stfdiff.model6_GN_SiLU</u>
 
 ## 联系我
 
