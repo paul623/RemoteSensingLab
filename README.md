@@ -88,10 +88,8 @@ DataSetsTools放了一些常用的CIA和LGC数据集的处理代码
 
 ### STM-STFNet
 
-论文：[[A Dual-Perspective Spatiotemporal Fusion Model for Remote Sensing Images by Discriminative Learning of the Spatial and Temporal Mapping](https://www.sciencedirect.com/science/article/pii/S092427162400176X)](https://ieeexplore.ieee.org/abstract/document/10595407)
-
-代码：[[lixinghua5540/ECPW-STFN: Enhanced wavelet based spatiotemporal fusion networks using cross-paired remote sensing images, 2024](https://github.com/lixinghua5540/ECPW-STFN)](https://github.com/zhonhua/STM-STFNet)
-
+论文：[[A Dual-Perspective Spatiotemporal Fusion Model for Remote Sensing Images by Discriminative Learning of the Spatial and Temporal Mapping](https://ieeexplore.ieee.org/abstract/document/10595407)]
+代码：[zhonhua/STM-STFNet](https://github.com/zhonhua/STM-STFNet)
 
 ## 联系我
 
